@@ -8,12 +8,17 @@ Since the website content needs to be downloaded from punjabischoolbothell.org, 
 
 ### Quick Start
 
-**Option 1: Use the provided script**
+**Option 1: Use the Bash script (Linux/Mac with wget)**
 ```bash
 ./download-website.sh
 ```
 
-**Option 2: Follow detailed instructions**
+**Option 2: Use the Python script (Cross-platform)**
+```bash
+python3 download-website.py
+```
+
+**Option 3: Follow detailed instructions**
 
 See [DOWNLOAD_INSTRUCTIONS.md](DOWNLOAD_INSTRUCTIONS.md) for comprehensive guide including:
 - Multiple download methods (wget, HTTrack, curl)
@@ -23,7 +28,9 @@ See [DOWNLOAD_INSTRUCTIONS.md](DOWNLOAD_INSTRUCTIONS.md) for comprehensive guide
 
 ### Prerequisites
 
-- `wget` installed on your system (or HTTrack as an alternative)
+- **For Bash script:** `wget` installed on your system
+- **For Python script:** Python 3.x (usually pre-installed on Linux/Mac)
+- **Alternative:** HTTrack Website Copier (GUI tool)
 - Access to the website (either live or archived version)
 - Internet connectivity
 
@@ -34,7 +41,8 @@ After downloading, content will be organized as:
 PSB/
 ├── website-content/         # Downloaded website files
 │   └── punjabischoolbothell.org/
-├── download-website.sh      # Automated download script
+├── download-website.sh      # Bash download script (wget)
+├── download-website.py      # Python download script (cross-platform)
 ├── DOWNLOAD_INSTRUCTIONS.md # Detailed instructions
 └── README.md               # This file
 ```

@@ -3,6 +3,12 @@
 *.temp
 .wget-hsts
 
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
 # OS files
 .DS_Store
 Thumbs.db

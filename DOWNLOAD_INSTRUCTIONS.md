@@ -12,13 +12,21 @@ You need one of the following tools installed on your local machine:
 - **macOS**: `brew install wget`
 - **Windows**: Download from https://eternallybored.org/misc/wget/
 
-### Option 2: HTTrack Website Copier
+### Option 2: Python 3
+
+- Usually pre-installed on Linux and macOS
+- Windows: Download from https://www.python.org/downloads/
+- No additional packages required
+
+### Option 3: HTTrack Website Copier
 
 - Download from: https://www.httrack.com/
 - Available for Windows, Linux, and macOS
 - Provides a GUI interface for easier use
 
-## Method 1: Using the Provided Script (wget)
+## Method 1: Using the Provided Bash Script (wget)
+
+**Best for:** Linux/Mac users with wget installed
 
 1. **Clone this repository** (if you haven't already):
    ```bash
@@ -48,7 +56,41 @@ You need one of the following tools installed on your local machine:
    git push
    ```
 
-## Method 2: Manual wget Command
+## Method 2: Using the Python Script (Cross-Platform)
+
+**Best for:** Windows users or anyone with Python 3 installed
+
+1. **Clone this repository** (if you haven't already):
+   ```bash
+   git clone https://github.com/msjammu/PSB.git
+   cd PSB
+   ```
+
+2. **Run the Python download script**:
+   ```bash
+   python3 download-website.py
+   ```
+   
+   Or on Windows:
+   ```bash
+   python download-website.py
+   ```
+
+3. **Review the downloaded content**:
+   ```bash
+   ls -la website-content/
+   ```
+
+4. **Commit and push the downloaded content**:
+   ```bash
+   git add website-content/
+   git commit -m "Add downloaded website content from punjabischoolbothell.org"
+   git push
+   ```
+
+**Note:** The Python script is simpler and works on all platforms but may be slower than wget for large sites.
+
+## Method 3: Manual wget Command
 
 If you prefer to run wget manually with custom options:
 
@@ -67,7 +109,7 @@ wget --recursive \
      http://punjabischoolbothell.org
 ```
 
-## Method 3: Using HTTrack (GUI)
+## Method 4: Using HTTrack (GUI)
 
 1. **Download and install HTTrack** from https://www.httrack.com/
 
@@ -95,7 +137,7 @@ wget --recursive \
    git push
    ```
 
-## Method 4: Using curl (Alternative)
+## Method 5: Using curl (Alternative)
 
 For a simple page download:
 
@@ -107,7 +149,7 @@ curl -O http://punjabischoolbothell.org/index.html
 
 Note: This only downloads a single page. Use wget or HTTrack for complete site downloads.
 
-## Method 5: Using Archive.org Wayback Machine
+## Method 6: Using Archive.org Wayback Machine
 
 If the website is no longer accessible, you can retrieve archived versions:
 
