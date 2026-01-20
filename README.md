@@ -8,6 +8,17 @@ Since the website content needs to be downloaded from punjabischoolbothell.org, 
 
 ### Quick Start
 
+**TL;DR:** Run one of these commands, then commit the downloaded files.
+
+```bash
+./download-website.sh        # Linux/Mac with wget
+python3 download-website.py  # Any platform with Python 3
+```
+
+See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for one-page guide.
+
+**Detailed Options:**
+
 **Option 1: Use the Bash script (Linux/Mac with wget)**
 ```bash
 ./download-website.sh
