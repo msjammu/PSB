@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Calendar - Punjabi School Bothell</title>
+    <meta name="description" content="View the Punjabi School Bothell class schedule, important dates, and upcoming events.">
+    <link rel="icon" type="image/jpeg" href="https://punjabischoolbothell.org/Skins/psb_v2_3/assets/images/cropp-1-1-221x221.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .calendar-table th {
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .calendar-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .calendar-table tr:last-child td {
+            border-bottom: none;
+        }
+        .calendar-table tr:hover {
+            background: #fff9f0;
+        }
+        .month-header {
+            background: var(--primary-color) !important;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .month-header td {
+            padding: 12px 8px;
+            border-bottom: 2px solid var(--primary-dark);
+        }
+        .school-day {
+            color: #38a169;
+            font-weight: 700;
+        }
+        .no-school {
+            color: #e53e3e;
+            font-weight: 700;
+        }
+        .special-event {
+            color: #805ad5;
+            font-weight: 700;
+        }
+        .week-num {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        .note-text {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+        }
+        .important-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 8px;
+            margin: 0.25rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .important-date.diwali { border-left: 4px solid #f6ad55; }
+        .important-date.gurpurab { border-left: 4px solid #f58634; }
+        .important-date.thanksgiving { border-left: 4px solid #48bb78; }
+        .important-date.vaisakhi { border-left: 4px solid #4299e1; }
+        .schedule-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+        .schedule-card h4 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .schedule-item {
+            display: flex;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+        .schedule-time {
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 100px;
+        }
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+        .two-col-calendar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 992px) {
+            .two-col-calendar {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://punjabischoolbothell.org/Skins/psb_v2_3/assets/images/cropp-1-1-221x221.jpg" alt="Punjabi School Bothell Logo" class="navbar-logo">
+                <span>Punjabi School Bothell</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="enroll.html">Enroll</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header text-white">
+        <div class="container">
+            <h1>School Calendar</h1>
+            <p class="lead mb-0 opacity-90">2025-2026 Academic Year • September – June</p>
+        </div>
+    </header>
+
+    <!-- Quick Info -->
+    <section class="py-4 bg-cream">
+        <div class="container">
+            <div class="row text-center g-3">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                        <span style="font-size: 1.5rem;">📍</span>
+                        <span><strong>Location:</strong> Sikh Center of Seattle</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                        <span style="font-size: 1.5rem;">📅</span>
+                        <span><strong>Classes:</strong> Every Sunday</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                        <span style="font-size: 1.5rem;">⏰</span>
+                        <span><strong>Time:</strong> 10:30 AM – 12:30 PM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule & Upcoming Events -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Weekly Schedule -->
+                <div class="col-lg-6">
+                    <div class="schedule-card">
+                        <h4>📋 Weekly Schedule</h4>
+                        <div class="schedule-item">
+                            <span class="schedule-time">9:15 AM</span>
+                            <span>FastTrack, Level 1 Early Start & Kirtan (AM)</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-time">10:30 AM</span>
+                            <span>Assembly & Prayers at Main Hall</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-time">11:00 AM</span>
+                            <span>Little Learners & Levels 1-5 Classes</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-time">12:30 PM</span>
+                            <span>Kirtan Class (PM) / Langar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Year Calendar -->
+    <section class="py-5 bg-cream">
+        <div class="container">
+            <h2 class="section-title text-center mb-4 w-100">Full Year Calendar 2025-2026</h2>
+            
+            <div class="legend mb-4">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #38a169;"></div>
+                    <span>School Day</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #e53e3e;"></div>
+                    <span>No School</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #805ad5;"></div>
+                    <span>Special Event</span>
+                </div>
+            </div>
+
+            <div class="two-col-calendar">
+                <!-- Left Column: Sep-Jan -->
+                <div>
+                    <table class="calendar-table">
+                        <!-- September 2025 -->
+                        <tr class="month-header"><td colspan="4">📅 September 2025</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>9/7</td><td class="week-num">Week 0</td><td class="no-school">NO SCHOOL</td><td class="note-text">Administration Meetings</td></tr>
+                        <tr><td>9/14</td><td class="week-num">Week 1</td><td class="school-day">SCHOOL DAY</td><td class="note-text">First Day of School 🎒</td></tr>
+                        <tr><td>9/21</td><td class="week-num">Week 2</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>9/28</td><td class="week-num">Week 3</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        
+                        <!-- October 2025 -->
+                        <tr class="month-header"><td colspan="4">📅 October 2025</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>10/5</td><td class="week-num">Week 4</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Administration Meetings</td></tr>
+                        <tr><td>10/12</td><td class="week-num">Week 5</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>10/19</td><td class="week-num">Week 6</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>10/26</td><td class="week-num">Week 7</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        
+                        <!-- November 2025 -->
+                        <tr class="month-header"><td colspan="4">📅 November 2025</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>11/2</td><td class="week-num">Week 8</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Administration Meeting</td></tr>
+                        <tr><td>11/9</td><td class="week-num">Week 9</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>11/16</td><td class="week-num">Week 10</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Volunteers all hands</td></tr>
+                        <tr><td>11/23</td><td class="week-num">Week 11</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>11/30</td><td class="week-num">Week 12</td><td class="no-school">NO SCHOOL</td><td class="note-text">Thanksgiving 🦃</td></tr>
+                        
+                        <!-- December 2025 -->
+                        <tr class="month-header"><td colspan="4">📅 December 2025</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>12/7</td><td class="week-num">Week 13</td><td class="school-day">SCHOOL DAY</td><td class="note-text">End of Quarter 1 (Exam & Pizza Day) 🍕</td></tr>
+                        <tr><td>12/14</td><td class="week-num">Week 14</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Administration Meeting</td></tr>
+                        <tr><td>12/21</td><td class="week-num">Week 15</td><td class="no-school">NO SCHOOL</td><td class="note-text">Xmas/New Year break ❄️</td></tr>
+                        <tr><td>12/28</td><td class="week-num">Week 16</td><td class="no-school">NO SCHOOL</td><td class="note-text">Xmas/New Year break ❄️</td></tr>
+                        
+                        <!-- January 2026 -->
+                        <tr class="month-header"><td colspan="4">📅 January 2026</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>1/4</td><td class="week-num">Week 17</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Administration Meeting</td></tr>
+                        <tr><td>1/11</td><td class="week-num">Week 18</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Parent–Teacher Meeting</td></tr>
+                        <tr><td>1/18</td><td class="week-num">Week 19</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>1/25</td><td class="week-num">Week 20</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                    </table>
+                </div>
+
+                <!-- Right Column: Feb-Jun -->
+                <div>
+                    <table class="calendar-table">
+                        <!-- February 2026 -->
+                        <tr class="month-header"><td colspan="4">📅 February 2026</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>2/1</td><td class="week-num">Week 21</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Volunteers all hands</td></tr>
+                        <tr><td>2/8</td><td class="week-num">Week 22</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>2/15</td><td class="week-num">Week 23</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>2/22</td><td class="week-num">Week 24</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        
+                        <!-- March 2026 -->
+                        <tr class="month-header"><td colspan="4">📅 March 2026</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>3/1</td><td class="week-num">Week 25</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Volunteers all hands</td></tr>
+                        <tr><td>3/8</td><td class="week-num">Week 26</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>3/15</td><td class="week-num">Week 27</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>3/22</td><td class="week-num">Week 28</td><td class="school-day">SCHOOL DAY</td><td class="note-text">End of Quarter 2 (Exam, Pizza Day) 🍕</td></tr>
+                        <tr><td>3/29</td><td class="week-num">Week 29</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        
+                        <!-- April 2026 -->
+                        <tr class="month-header"><td colspan="4">📅 April 2026</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>4/5</td><td class="week-num">Week 30</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Parent–Teacher Meeting</td></tr>
+                        <tr><td>4/12</td><td class="week-num">Week 31</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Volunteers all hands</td></tr>
+                        <tr><td>4/19</td><td class="week-num">Week 32</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>4/26</td><td class="week-num">Week 33</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        
+                        <!-- May 2026 -->
+                        <tr class="month-header"><td colspan="4">📅 May 2026</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>5/3</td><td class="week-num">Week 34</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Year end planning meeting</td></tr>
+                        <tr><td>5/10</td><td class="week-num">Week 35</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Year end planning meeting</td></tr>
+                        <tr><td>5/17</td><td class="week-num">Week 36</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>5/24</td><td class="week-num">Week 37</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        <tr><td>5/31</td><td class="week-num">Week 38</td><td class="school-day">SCHOOL DAY</td><td></td></tr>
+                        
+                        <!-- June 2026 -->
+                        <tr class="month-header"><td colspan="4">📅 June 2026</td></tr>
+                        <tr><th>Date</th><th>Week</th><th>Status</th><th>Notes</th></tr>
+                        <tr><td>6/7</td><td class="week-num">Week 39</td><td class="school-day">SCHOOL DAY</td><td class="note-text">End of Quarter 3 (Exam Day) 📝</td></tr>
+                        <tr><td>6/14</td><td class="week-num">Week 40</td><td class="school-day">SCHOOL DAY</td><td class="note-text">Last Day of School 🎓</td></tr>
+                        <tr><td>6/20</td><td class="week-num">Week 41</td><td class="special-event">SPECIAL</td><td class="note-text">Year-End Celebration 🎉</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Dates -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-4 w-100">Important Sikh Dates</h2>
+            <div class="text-center">
+                <span class="important-date diwali">🪔 Diwali / Bandi Chhor Divas</span>
+                <span class="important-date gurpurab">🙏 Gurpurab - Guru Nanak Dev Ji</span>
+                <span class="important-date thanksgiving">🦃 Thanksgiving</span>
+                <span class="important-date gurpurab">🙏 Gurpurab - Guru Gobind Singh Ji</span>
+                <span class="important-date vaisakhi">🌾 Vaisakhi</span>
+                <span class="important-date gurpurab">🙏 Holla Mohalla</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-3">
+                    <img src="https://punjabischoolbothell.org/Skins/psb_v2_3/assets/images/cropp-1-1-221x221.jpg" alt="Logo" class="footer-logo">
+                    <h5 class="text-white">Punjabi School Bothell</h5>
+                    <p class="text-white-50">Empowering the next generation through language, culture, and community service.</p>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="mailto:Info@punjabischoolbothell.org">Info@punjabischoolbothell.org</a></li>
+                        <li class="mb-2"><a href="tel:+14252338319">+1 (425) 233-8319</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-3">
+                    <h5>Location</h5>
+                    <p class="text-white-50 mb-0">20412 Bothell Everett Highway<br>Bothell, Washington 98012</p>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="text-center text-white-50">
+                <p class="mb-0">&copy; 2026 Punjabi School Bothell. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
