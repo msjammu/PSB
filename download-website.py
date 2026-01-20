@@ -11,7 +11,6 @@ import sys
 import urllib.request
 import urllib.error
 from urllib.parse import urljoin, urlparse
-from pathlib import Path
 import time
 import re
 
@@ -68,7 +67,9 @@ def download_file(url, output_path):
     """Download a single file from URL to output_path"""
     try:
         # Create directory if needed
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        dir_path = os.path.dirname(output_path)
+        if dir_path:
+            os.makedirs(dir_path, exist_ok=True)
         
         # Download file
         print(f"Downloading: {url}")
