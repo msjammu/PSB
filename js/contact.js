@@ -18,8 +18,10 @@
     }
     var fp = document.getElementById('footer-phone');
     if (fp) {
-        fp.href = 'te' + 'l:' + pr;
-        fp.innerHTML = '<i class="fas fa-phone me-2"></i>' + p;
+        fp.href = 'https://wa.' + 'me/' + pr;
+        fp.target = '_blank';
+        fp.rel = 'noopener noreferrer';
+        fp.innerHTML = '<i class="fab fa-whatsapp me-2"></i>' + p;
     }
 
     // Enroll page CTA buttons
@@ -29,6 +31,8 @@
     }
     var cp = document.getElementById('cta-phone');
     if (cp) {
-        cp.href = 'te' + 'l:' + pr;
+        cp.href = 'https://wa.' + 'me/' + pr;
+        cp.target = '_blank';
+        cp.rel = 'noopener noreferrer';
     }
 })();
